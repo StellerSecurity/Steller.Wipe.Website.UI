@@ -3,10 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <img src="/Logo_Steller_Protect_RGB.svg" style="height: 96px"><br><br><br>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Stellar Protect</div>
-
                 <div class="card-body">
                     <p>Stellar Protect allows you to remote wipe your device if it has been stolen,
                         lost or if you just want to delete all contents on your phone.<br><br>

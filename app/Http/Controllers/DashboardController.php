@@ -19,6 +19,8 @@ class DashboardController extends Controller
 
         $auth_token = session('auth_token');
 
+        return view('dashboard', ['is_wiped' => false, 'csrf' => 10]);
+
         if($auth_token === null) {
             return redirect('/');
         }

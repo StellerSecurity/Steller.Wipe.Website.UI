@@ -3,9 +3,10 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <img src="/Logo_Steller_Protect_RGB.svg" style="height: 96px"><br><br><br><br>
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Steller Protect</div>
+
 
                 <div class="card-body">
                     <h3>There is currently <strong>1</strong> device linked to your account</h3>
