@@ -16,7 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'auth']);
 
 
+Route::match(['post', 'get'], '/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])
+    ->name('Login');
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::match(['post', 'get'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])
+    ->name('Login')->middleware("throttle:10,2");
+
