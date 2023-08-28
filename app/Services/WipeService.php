@@ -28,6 +28,10 @@ class WipeService
         return $response;
     }
 
+    /**
+     * @param string $auth_token
+     * @return Response
+     */
     public function findbytoken(string $auth_token): Response
     {
         $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
@@ -35,6 +39,11 @@ class WipeService
         return $response;
     }
 
+    /**
+     * @param string $id
+     * @param int $status
+     * @return Response
+     */
     public function updateStatus(string $id, int $status): Response
     {
         $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
