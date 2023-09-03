@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'StellerWipeWebsiteUIProd'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C456C8A87FA743C29CD0B5B28469E6F8 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2324422BB15849868C5E0C02DB33D41E }}
           package: .
