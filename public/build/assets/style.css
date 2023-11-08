@@ -1,6 +1,18 @@
 @font-face {
-  font-family: 'silka';
-  src: url('/webfonts/sikla-regular.otf') format('otf');
+  font-family: 'Silka';
+  src: url('/webfonts/silka-regular.otf') format('opentype');
+}
+@font-face {
+  font-family: 'Silka-Bold';
+  src: url('/webfonts/silka-bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Silka-Semibold';
+  src: url('/webfonts/silka-semibold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Silka-Medium';
+  src: url('/webfonts/silka-medium.ttf') format('truetype');
 }
 
 body{
@@ -39,12 +51,17 @@ body{
   font-size: 52px;
 }
 
-.fs-20px{
-  font-size: 20px;
+.fs-18px{
+  font-size: 18px;
 }
 
 .title-headline{
   font-weight: 700;
+}
+
+.form-control::placeholder{
+  color: #85898C !important;
+  font-family: 'Silka';
 }
 
 .border.border-grey-light{
@@ -56,5 +73,17 @@ body{
 }
 
 .font-silka{
-  font-family: 'Silka', sans-serif;
+  font-family: 'Silka', sans-serif !important;
+}
+
+.font-silka-medium{
+  font-family: 'Silka-Medium', sans-serif !important;
+}
+
+.font-silka-semibold{
+  font-family: 'Silka-Semibold', sans-serif !important;
+}
+
+.font-silka-bold{
+  font-family: 'Silka-Bold', sans-serif !important;
 }

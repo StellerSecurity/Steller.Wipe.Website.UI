@@ -59,12 +59,12 @@
     </div> --}}
     <div class="content-parent d-flex flex-column align-items-center justify-content-center">
         <div class="headline mt-5">
-            <h1 class="mb-0 text-center fs-xl font-silka">Wipe your <br> <span class="fw-bold">Phone</span></h1>
+            <h1 class="mb-0 text-center fs-xl font-silka">Wipe your <br> <span class="font-silka-bold">Phone</span></h1>
         </div>
         <div class="card border border-grey-light mt-5 bg-white rounded-4 p-2" style="max-width: 570px;">
             <div class="card-body">
                 <div class="upper-card border-b border-grey-light pb-3">
-                    <p class="mb-0 font-silka fs-20px title-headline">Stellar Protect allows you to remote wipe your device</p>
+                    <p class="mb-0 font-silka fs-18px title-headline">Stellar Protect allows you to remote wipe your device</p>
                     <p class="mb-0 fs-20px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
                 </div>
                 <div class="forms pt-3">
@@ -92,7 +92,7 @@
                         </div>
 
                         <div class="action-btn">
-                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka fw-semibold">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
+                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
                         </div>
                     </form>
                 </div>
