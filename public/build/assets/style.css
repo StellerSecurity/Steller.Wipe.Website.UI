@@ -15,9 +15,10 @@
   src: url('/webfonts/silka-medium.ttf') format('truetype');
 }
 body{
-  background-image: url('/build/assets/images/background-object.svg');
+  background-image: url('/build/assets/images/Object.png');
   background-size: 100%;
   background-repeat: no-repeat;
+  background-color: #fafafa !important;
 }
 
 .bg-grey-light{
