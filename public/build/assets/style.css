@@ -1,3 +1,46 @@
+body{
+  background-image: url('/build/assets/images/background-object.svg');
+  background-size: cover;
+}
+
 .bg-grey-light{
   background: #f7f6fc !important;
+}
+
+.bg-blue{
+  background: #4364FA !important;
+}
+
+.text-blue{
+  color: #4364FA !important;
+}
+
+.btn.btn-blue{
+  background: #4364FA !important;
+  padding: 10px 20px !important;
+}
+
+.btn.btn-blue:hover{
+  background: #3b58dd !important;
+  padding: 10px 20px !important;
+}
+
+.fs-xl{
+  font-size: 52px;
+}
+
+.fs-18px{
+  font-size: 18px;
+}
+
+.border.border-grey-light{
+  border: 2px solid #F7F6FC !important;
+}
+
+.border-b.border-grey-light{
+  border-bottom: 2px solid #F7F6FC !important;
+}
+
+.font-silka{
+  font-family: 'Silka', sans-serif;
 }

@@ -1,4 +1,4 @@
-<div class="navigation w-100 bg-grey-light d-flex align-items-center justify-content-between p-3">
+<div class="navigation w-100 bg-grey-light d-flex align-items-center justify-content-between flex-wrap p-3">
   <div class="navbrand">
     <a href="#" class="text-decoration-none">
       <img src="/Logo_Steller_Protect_RGB.svg" width="200">
