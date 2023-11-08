@@ -14,11 +14,10 @@
   font-family: 'Silka-Medium';
   src: url('/webfonts/silka-medium.ttf') format('truetype');
 }
-
 body{
   background-image: url('/build/assets/images/background-object.svg');
-  background-size: cover;
-  color: #080E16;
+  background-size: 100%;
+  background-repeat: no-repeat;
 }
 
 .bg-grey-light{

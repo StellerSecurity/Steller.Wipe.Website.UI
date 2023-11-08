@@ -64,7 +64,7 @@
         <div class="card border border-grey-light mt-5 bg-white rounded-4 p-2" style="max-width: 570px;">
             <div class="card-body">
                 <div class="upper-card border-b border-grey-light pb-3">
-                    <p class="mb-0 font-silka fs-18px title-headline">Stellar Protect allows you to remote wipe your device</p>
+                    <p class="mb-0 font-silka-bold fs-18px title-headline">Stellar Protect allows you to remote wipe your device</p>
                     <p class="mb-0 fs-20px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
                 </div>
                 <div class="forms pt-3">
