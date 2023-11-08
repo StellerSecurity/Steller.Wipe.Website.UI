@@ -1,10 +1,20 @@
+@font-face {
+  font-family: 'silka';
+  src: url('/webfonts/sikla-regular.otf') format('otf');
+}
+
 body{
   background-image: url('/build/assets/images/background-object.svg');
   background-size: cover;
+  color: #080E16;
 }
 
 .bg-grey-light{
   background: #f7f6fc !important;
+}
+
+.form-label{
+  font-weight: 600;
 }
 
 .bg-blue{
@@ -29,8 +39,12 @@ body{
   font-size: 52px;
 }
 
-.fs-18px{
-  font-size: 18px;
+.fs-20px{
+  font-size: 20px;
+}
+
+.title-headline{
+  font-weight: 700;
 }
 
 .border.border-grey-light{

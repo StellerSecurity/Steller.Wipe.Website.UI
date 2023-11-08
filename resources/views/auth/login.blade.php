@@ -64,8 +64,8 @@
         <div class="card border border-grey-light mt-5 bg-white rounded-4 p-2" style="max-width: 570px;">
             <div class="card-body">
                 <div class="upper-card border-b border-grey-light pb-3">
-                    <p class="mb-0 fw-bold font-silka fs-18px">Stellar Protect allows you to remote wipe your device</p>
-                    <p class="mb-0 fs-18px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
+                    <p class="mb-0 font-silka fs-20px title-headline">Stellar Protect allows you to remote wipe your device</p>
+                    <p class="mb-0 fs-20px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
                 </div>
                 <div class="forms pt-3">
                     @isset($error_message)
@@ -77,16 +77,13 @@
                     <form method="POST" action="/">
                         @csrf
                         <div class="mb-3">
-                            <label for="username" class="font-silka text-uppercase fw-semibold">Username <sup>*</sup></label>
+                            <label for="username" class="font-silka text-uppercase form-label">Username <sup>*</sup></label>
                             <input type="text" name="username" id="username" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required autofocus placeholder="Add your Username">
                         </div>
 
                         <div class="mb-3">
-                            <label for="password" class="font-silka text-uppercase fw-semibold">Password <sup>*</sup></label>
-                            <div class="input-parent position-relative">
-                                <input type="password" name="password" id="password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
-                                <img src="{{ asset('build/assets/images/eye-closed.svg') }}" class="position-absolute top-50 end-0 translate-middle" style="cursor: pointer">
-                            </div>
+                            <label for="password" class="font-silka text-uppercase form-label">Password <sup>*</sup></label>
+                            <input type="password" name="password" id="password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
