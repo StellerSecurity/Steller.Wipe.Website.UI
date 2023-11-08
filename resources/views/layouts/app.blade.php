@@ -12,15 +12,17 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('build/assets/style.css') }}">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
-    </div>
+    <header>
+        @include('layouts.header')
+    </header>
+    <main class="py-4">
+        @yield('content')
+    </main>
 </body>
 </html>
