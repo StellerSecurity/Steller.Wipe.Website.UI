@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\WipedBy;
 use GuzzleHttp\Promise\PromiseInterface;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
@@ -47,7 +48,7 @@ class WipeService
     public function updateStatus(string $id, int $status): Response
     {
         $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
-            ->patch($this->baseUrl . "v1/wipeusercontroller/patch", ['id' => $id, 'status' => $status]);
+            ->patch($this->baseUrl . "v1/wipeusercontroller/patch", ['id' => $id, 'status' => $status, 'wiped_by' => WipedBy::WEBSITE]);
         return $response;
     }
 
