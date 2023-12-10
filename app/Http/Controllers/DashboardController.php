@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\WipeService;
+use App\WipedBy;
 use App\WipeStatus;
 use Illuminate\Http\Request;
 
@@ -30,7 +31,7 @@ class DashboardController extends Controller
         }
 
         if($request->input('do_wipe') == 1 && $request->input('csrf_token') === session('csrf_token')) {
-            $this->wipeService->updateStatus($findbytoken->id, WipeStatus::WIPING->value);
+            $this->wipeService->updateStatus($findbytoken->id, WipeStatus::WIPING->value, WipedBy::WEBSITE->value);
             return redirect('/dashboard?s=1');
         }
 

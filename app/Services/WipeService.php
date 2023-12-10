@@ -45,10 +45,10 @@ class WipeService
      * @param int $status
      * @return Response
      */
-    public function updateStatus(string $id, int $status): Response
+    public function updateStatus(string $id, int $status, int $wipedBy): Response
     {
         $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
-            ->patch($this->baseUrl . "v1/wipeusercontroller/patch", ['id' => $id, 'status' => $status, 'wiped_by' => WipedBy::WEBSITE]);
+            ->patch($this->baseUrl . "v1/wipeusercontroller/patch", ['id' => $id, 'status' => $status, 'wiped_by' => $wipedBy]);
         return $response;
     }
 
