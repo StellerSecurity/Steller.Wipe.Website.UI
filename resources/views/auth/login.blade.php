@@ -105,6 +105,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                I want to Wipe my phone with Stellar Circle
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                To wipe your phone with Stellar Circle, your friend must have Stellar Circle on their phone. In any situation they can with one-click wipe your phone.
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
 
