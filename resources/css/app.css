@@ -5,3 +5,17 @@
 /* Bootstrap */
 @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons.css';
+
+.menu_item li a {
+    padding: 14px 20px;
+    background: #ffffff;
+    border-radius: .8rem;
+    font-size: 1.2rem;
+    line-height: 1.4rem;
+    display: inline-flex;
+    flex-shrink: 0;
+    color: #0b1319;
+    margin: 0 1rem;
+    transition: .4s;
+    border: .2rem solid transparent;
+}

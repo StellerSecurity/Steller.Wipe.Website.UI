@@ -16,35 +16,98 @@
                     <p class="mb-0 fs-20px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
                     <strong style="font-size: 18px">Please choose which method you want to Wipe your phone with:</strong>
                 </div>
-                <div class="forms pt-3">
-                    @isset($error_message)
+
+                @isset($error_message)
                     <div class="alert alert-danger" role="alert">
                         <strong>{{ $error_message }}</strong>
                     </div>
-                    @endisset
+                @endisset
 
-                    <form method="POST" action="/">
-                        @csrf
-                        <div class="mb-3">
-                            <label for="username" class="font-silka text-uppercase form-label">Username <sup>*</sup></label>
-                            <input type="text" name="username" id="username" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required autofocus placeholder="Add your Username">
-                        </div>
 
-                        <div class="mb-3">
-                            <label for="password" class="font-silka text-uppercase form-label">Password <sup>*</sup></label>
-                            <input type="password" name="password" id="password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
-                            @error('password')
-                                <span class="invalid-feedback" role="alert">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                I want to Wipe with my Username and Password I created in the Protect App
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="forms pt-3">
+                                    <form method="POST" action="/">
+                                        <input type="hidden" name="method" value="0">
+                                        @csrf
+                                        <div class="mb-3">
+                                            <label for="username" class="font-silka text-uppercase form-label">Username <sup>*</sup></label>
+                                            <input type="text" name="username" id="username" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required autofocus placeholder="Add your Username">
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password" class="font-silka text-uppercase form-label">Password <sup>*</sup></label>
+                                            <input type="password" name="password" id="password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
-                            @enderror
-                        </div>
+                                            @enderror
+                                        </div>
 
-                        <div class="action-btn">
-                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
+                                        <div class="action-btn">
+                                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
-                    </form>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                I want to Wipe the phone with my Wipe Token
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <div class="forms pt-3">
+                                    <form method="POST" action="/">
+                                        <input type="hidden" name="method" value="1">
+                                        @csrf
+                                        <p>The Wipe Auth Token can be found in the Protect-app.</p>
+
+
+                                        <div class="mb-3">
+                                            <label for="password" class="font-silka text-uppercase form-label">Wipe Auth Token <sup>*</sup></label>
+                                            <input type="text" name="token" id="token" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Wipe Auth Token">
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                </span>
+                                            @enderror
+                                        </div>
+
+                                        <div class="action-btn">
+                                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                I want to Wipe by Phone with my Signal / Telegram or Whats-app number
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                This method does only work for Stellar Phone. Please contact our support to get help.
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
+
 
                 <div class="information py-3 border-b border-grey-light">
                     <p class="mb-0 text-secondary">If you don't know your login-details write to us on Signal on <a href="#" class="fw-bold text-blue">+591 73436721</a> or <a href="#" class="fw-bold text-blue">info@stellarsecurity.com</a>. Then we can help.</p>

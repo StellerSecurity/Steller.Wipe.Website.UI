@@ -21,10 +21,14 @@ class LoginController extends Controller
 
         if($request->isMethod('post')) {
 
-            $username = $request->input('username');
-            $password = $request->input('password');
-
-            $login = $this->wipeService->auth($username, $password)->object();
+            $login = null;
+            if($request->input('method') === 0) {
+                $username = $request->input('username');
+                $password = $request->input('password');
+                $login = $this->wipeService->auth($username, $password)->object();
+            } else if($request->input('token') !== null) {
+                $login = $this->wipeService->findbytoken("v6ntLJjBKr3lSIqceAdjsYlTN7VONvFBgLZ3zySLUFL9mXOFmyMCB2")->body();
+            }
 
             if($login == null) {
                 $data['error_message'] = "The login details you provided does not exist. Try again.";
