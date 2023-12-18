@@ -2,70 +2,19 @@
 
 @section('content')
 <div class="container wipe-page">
-    {{-- <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-body">
-                    <p>Stellar Protect allows you to remote wipe your device if it has been stolen,
-                        lost or if you just want to delete all contents on your phone.<br><br>
 
-                        If you don't know your login-details write to us on Signal on <strong>+591 73436721</strong> or <strong>info@stellarsecurity.com</strong>. Then we can help.
-                    </p>
-                    <hr>
-
-                    @isset($error_message)
-                    <div class="alert alert-danger" role="alert">
-                        <strong>{{ $error_message }}</strong>
-                    </div>
-                    @endisset
-
-                    <form method="POST" action="/">
-                        @csrf
-
-                        <div class="row mb-3">
-                            <label for="username" class="col-md-4 col-form-label text-md-end">Username</label>
-
-                            <div class="col-md-6">
-                                <input id="username" type="text" class="form-control" name="username" required autofocus>
-
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class="content-parent d-flex flex-column align-items-center justify-content-center">
         <div class="headline mt-5">
-            <h1 class="mb-0 text-center fs-xl font-silka">Wipe your <br> <span class="font-silka-bold">Phone</span></h1>
+            <h1 class="mb-0 text-center fs-xl font-silka">
+                <img src="/Logo_Steller_Protect_RGB.svg" style="height: 100px; max-width: 100%">
+            </h1>
         </div>
         <div class="card border border-grey-light mt-5 bg-white rounded-4 p-2" style="max-width: 570px;">
             <div class="card-body">
                 <div class="upper-card border-b border-grey-light pb-3">
                     <p class="mb-0 font-silka-bold fs-18px title-headline">Stellar Protect allows you to remote wipe your device</p>
                     <p class="mb-0 fs-20px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
+                    <strong style="font-size: 18px">Please choose which method you want to Wipe your phone with:</strong>
                 </div>
                 <div class="forms pt-3">
                     @isset($error_message)
