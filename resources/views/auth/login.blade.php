@@ -62,7 +62,7 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingTwo">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                I want to Wipe the phone with my Wipe Token
+                                I want to Wipe my phone with my Wipe Token
                             </button>
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -114,7 +114,7 @@
                         </h2>
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                To wipe your phone with Stellar Circle, your friend must have Stellar Circle on their phone. In any situation they can with one-click wipe your phone.
+                                To wipe your phone with Stellar Circle, your friend must have Stellar Circle on their phone. In any situation they can with one-click wipe your phone. See more here: <a href="/stellar-circle">Stellar Circle</a>
                             </div>
                         </div>
                     </div>
