@@ -111,7 +111,7 @@
 
 
                 <div class="information py-3 border-b border-grey-light">
-                    <p class="mb-0 text-secondary">If you don't know your login-details write to us on Signal on <a href="#" class="fw-bold text-blue">+591 73436721</a> or <a href="#" class="fw-bold text-blue">info@stellarsecurity.com</a>. Then we can help.</p>
+                    <p class="mb-0 text-secondary">If you need any help, you can use our <a href="/contact-us">contact-us page.</a></p>
                 </div>
 
                 <div class="card-foot pt-3 text-center">
