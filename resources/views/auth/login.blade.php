@@ -13,7 +13,6 @@
             <div class="card-body">
                 <div class="upper-card border-b border-grey-light pb-3">
                     <p class="mb-0 font-silka-bold fs-18px title-headline">Stellar Protect allows you to remote wipe your device</p>
-                    <p class="mb-0 fs-20px">if it has been stolen, lost or if you just want to delete all contents on your phone.</p>
                     <strong style="font-size: 18px">Please choose which method you want to Wipe your phone with:</strong>
                 </div>
 
