@@ -96,12 +96,13 @@
                     <div class="accordion-item">
                         <h2 class="accordion-header" id="headingThree">
                             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                I want to Wipe by Phone with my Signal / Telegram or Whats-app number
+                                I want to Wipe my phone with my Signal / Telegram or Whats-app number
                             </button>
                         </h2>
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 This method does only work for Stellar Phone. Please contact our support to get help.
+                                <a href="/contact-us">Contact us</a>, you can also use our live-chat.
                             </div>
                         </div>
                     </div>
