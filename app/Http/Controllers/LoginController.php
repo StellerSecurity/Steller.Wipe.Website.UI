@@ -27,7 +27,7 @@ class LoginController extends Controller
                 $password = $request->input('password');
                 $login = $this->wipeService->auth($username, $password)->object();
             } else if($request->input('token') !== null) {
-                $login = $this->wipeService->findbytoken($request->input('token'))->body();
+                $login = $this->wipeService->findbytoken($request->input('token'))->object();
             }
 
             if($login == null) {
