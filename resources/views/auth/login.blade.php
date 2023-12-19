@@ -123,7 +123,7 @@
 
 
                 <div class="information py-3 border-b border-grey-light">
-                    <p class="mb-0 text-secondary">If you need any help, you can use our <a href="/contact-us">contact-us page.</a></p>
+                    <p class="mb-0 text-secondary">If you need any help, you can use our <a href="https://stellarsecurity.com/contact-us">contact-us page.</a></p>
                 </div>
 
                 <div class="card-foot pt-3 text-center">
