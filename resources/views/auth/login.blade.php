@@ -114,7 +114,7 @@
                         </h2>
                         <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                To wipe your phone with Stellar Circle, your friend must have Stellar Circle on their phone. In any situation they can with one-click wipe your phone. See more here: <a href="/stellar-circle">Stellar Circle</a>
+                                To wipe your phone with Stellar Circle, your friend must have Stellar Circle on their phone. In any situation they can with one-click wipe your phone. See more here: <a href="https://stellarsecurity.com/stellar-circle">Stellar Circle</a>
                             </div>
                         </div>
                     </div>
