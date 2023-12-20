@@ -21,5 +21,5 @@ Route::match(['post', 'get'], '/dashboard', [\App\Http\Controllers\DashboardCont
 
 
 Route::match(['post', 'get'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])
-    ->name('Login')->middleware("throttle:10,2");
+    ->name('Login')->middleware("throttle:60,2");
 
