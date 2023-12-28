@@ -101,7 +101,7 @@
                         <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 This method does only work for Stellar Phone. Please contact our support to get help.
-                                <a href="/contact-us">Contact us</a>, you can also use our live-chat.
+                                <a href="https://stellarsecurity.com/contact-us">Contact us</a>, you can also use our live-chat.
                             </div>
                         </div>
                     </div>
