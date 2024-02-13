@@ -25,7 +25,7 @@ class WipeService
     public function auth(string $username, string $password): Response
     {
         $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
-            ->post($this->baseUrl . "v1/wipeusercontroller/loginauth?username={$username}&password={$password}");
+            ->post($this->baseUrl . "v1/wipeusercontroller/loginauth", ['username' => $username, 'password' => $password]);
         return $response;
     }
 
