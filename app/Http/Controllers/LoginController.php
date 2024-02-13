@@ -31,7 +31,7 @@ class LoginController extends Controller
             }
 
 
-            if($login == null) {
+            if(!isset($login->auth_token)) {
                 $data['error_message'] = "The login details you provided does not exist. Try again.";
             } else {
                 session(['auth_token' => $login->auth_token]);
