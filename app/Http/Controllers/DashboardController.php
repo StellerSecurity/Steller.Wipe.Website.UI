@@ -39,7 +39,7 @@ class DashboardController extends Controller
         session(['csrf_token' => $token]);
 
         $is_wiped = false;
-        if($findbytoken->status == WipeStatus::WIPING->value OR $findbytoken->status == WipeStatus::WIPED->value) {
+        if($findbytoken->status == WipeStatus::WIPING->value || $findbytoken->status == WipeStatus::WIPED->value) {
             $is_wiped = true;
         }
 
