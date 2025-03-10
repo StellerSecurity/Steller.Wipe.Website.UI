@@ -15,12 +15,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [\App\Http\Controllers\LoginController::class, 'auth']);
 
+Route::middleware('throttle:10,1')->group(function () {
+    Route::match(['post', 'get'], '/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])
+        ->name('Login');
 
-Route::match(['post', 'get'], '/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])
-    ->name('Login');
 
+    Route::match(['get'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])
+        ->name('Login');
 
-Route::match(['get'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])
-    ->name('Login');
-
-Route::match(['post'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])->middleware("throttle:20,2");
+    Route::match(['post'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])->middleware("throttle:20,2");
+});
