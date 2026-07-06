@@ -21,7 +21,7 @@ Route::middleware('throttle:10,1')->group(function () {
 
 
     Route::match(['get'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])
-        ->name('Login');
+        ->name('Login')->middleware("throttle:15,2");
 
-    Route::match(['post'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])->middleware("throttle:20,2");
+    Route::match(['post'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])->middleware("throttle:15,2");
 });
