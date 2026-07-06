@@ -1,27 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\DashboardController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::middleware('throttle:15,2')->group(function () {
+    Route::match(['get', 'post'], '/', [LoginController::class, 'auth'])
+        ->name('login');
 
-Route::get('/login', [\App\Http\Controllers\LoginController::class, 'auth']);
+    Route::get('/login', [LoginController::class, 'auth']);
+});
 
 Route::middleware('throttle:10,1')->group(function () {
-    Route::match(['post', 'get'], '/dashboard', [\App\Http\Controllers\DashboardController::class, 'dashboard'])
-        ->name('Login');
-
-
-    Route::match(['get'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])
-        ->name('Login')->middleware("throttle:15,2");
-
-    Route::match(['post'], '/', [\App\Http\Controllers\LoginController::class, 'auth'])->middleware("throttle:15,2");
+    Route::match(['get', 'post'], '/dashboard', [DashboardController::class, 'dashboard'])
+        ->name('dashboard');
 });
