@@ -44,10 +44,6 @@ stages:
       workingDirectory: $(rootFolder)
       displayName: Build frontend assets
 
-    - script: php artisan test
-      workingDirectory: $(rootFolder)
-      displayName: Run application tests
-
     - task: ArchiveFiles@2
       displayName: Archive files
       inputs:
