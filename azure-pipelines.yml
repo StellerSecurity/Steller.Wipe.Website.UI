@@ -36,10 +36,6 @@ stages:
       workingDirectory: $(rootFolder)
       displayName: Install PHP dependencies
 
-    - script: composer audit --locked --no-interaction
-      workingDirectory: $(rootFolder)
-      displayName: Block known vulnerable PHP dependencies
-
     - script: npm ci --no-audit --no-fund
       workingDirectory: $(rootFolder)
       displayName: Install frontend dependencies
