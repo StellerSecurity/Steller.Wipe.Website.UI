@@ -2,6 +2,13 @@
 
 return [
 
+    'wipe_api' => [
+        'base_url' => env('WIPE_API_BASE_URL', 'https://stellerphonewipeapiprod.azurewebsites.net/api/'),
+        'username' => env('WIPE_API_USERNAME', env('APPSETTING_API_USERNAME_STELLER_PHONE_WIPE_API')),
+        'password' => env('WIPE_API_PASSWORD', env('APPSETTING_API_PASSWORD_STELLER_PHONE_WIPE_API')),
+        'token_lookup_method' => strtolower(env('WIPE_API_TOKEN_LOOKUP_METHOD', 'get')),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Third Party Services

@@ -1,30 +1,16 @@
-# PHP as Linux Web App on Azure
-# Build, package and deploy your PHP project to Azure Linux Web App.
-# Add steps that run tests and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/php
-
 trigger:
 - main
 
 variables:
-  # Azure Resource Manager connection created during pipeline creation
   azureSubscription: '9eca8d83-a0de-4a3e-b0b1-8dd4ff35cf7e'
-
-  # Web app name
   webAppName: 'StellerWipeWebsiteUIProd'
-
-  # Agent VM image name
   vmImageName: 'ubuntu-latest'
-
-  # Environment name
   environmentName: 'StellerWipeWebsiteUIProd'
-
-  # Root folder under which your composer.json file is available.
   rootFolder: $(System.DefaultWorkingDirectory)
 
 stages:
 - stage: Build
-  displayName: Build stage
+  displayName: Build and security validation
   variables:
     phpVersion: '8.2'
   jobs:
@@ -40,14 +26,34 @@ stages:
         sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
         php -version
       workingDirectory: $(rootFolder)
-      displayName: 'Use PHP version $(phpVersion)'
+      displayName: Use PHP $(phpVersion)
+
+    - script: composer validate --strict --no-check-publish
+      workingDirectory: $(rootFolder)
+      displayName: Validate Composer metadata and lock file
 
     - script: composer install --no-interaction --prefer-dist --optimize-autoloader
       workingDirectory: $(rootFolder)
-      displayName: 'Composer install'
+      displayName: Install PHP dependencies
+
+    - script: composer audit --locked --no-interaction
+      workingDirectory: $(rootFolder)
+      displayName: Block known vulnerable PHP dependencies
+
+    - script: npm ci --no-audit --no-fund
+      workingDirectory: $(rootFolder)
+      displayName: Install frontend dependencies
+
+    - script: npm run build
+      workingDirectory: $(rootFolder)
+      displayName: Build frontend assets
+
+    - script: php artisan test
+      workingDirectory: $(rootFolder)
+      displayName: Run application tests
 
     - task: ArchiveFiles@2
-      displayName: 'Archive files'
+      displayName: Archive files
       inputs:
         rootFolderOrFile: '$(rootFolder)'
         includeRootFolder: false
@@ -56,11 +62,11 @@ stages:
         replaceExistingArchive: true
 
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
-      displayName: 'Upload package'
+      displayName: Upload package
       artifact: drop
 
 - stage: Deploy
-  displayName: 'Deploy Web App'
+  displayName: Deploy Web App
   dependsOn: Build
   condition: succeeded()
   jobs:
@@ -73,7 +79,7 @@ stages:
         deploy:
           steps:
           - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App : StellerWipeWebsiteUIProd'
+            displayName: Deploy Azure Web App
             inputs:
               azureSubscription: $(azureSubscription)
               appName: $(webAppName)

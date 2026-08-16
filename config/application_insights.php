@@ -13,5 +13,5 @@ return [
     /**
      * Whether to track users (anonymously)
      */
-    'track_anonymous_users' => env('APPINSIGHTS_TRACK_ANONYMOUS_USERS', true),
+    'track_anonymous_users' => env('APPINSIGHTS_TRACK_ANONYMOUS_USERS', false),
 ];

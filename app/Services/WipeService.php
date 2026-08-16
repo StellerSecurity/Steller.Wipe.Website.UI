@@ -2,55 +2,60 @@
 
 namespace App\Services;
 
-use App\WipedBy;
-use GuzzleHttp\Promise\PromiseInterface;
+use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
-
 class WipeService
 {
-
-    private $baseUrl = "https://stellerphonewipeapiprod.azurewebsites.net/api/";
-
-    private $usernameKey = "APPSETTING_API_USERNAME_STELLER_PHONE_WIPE_API";
-
-    private $passwordKey = "APPSETTING_API_PASSWORD_STELLER_PHONE_WIPE_API";
-
-    /**
-     * @param string $id
-     * @param string $type
-     * @return Response
-     */
     public function auth(string $username, string $password): Response
     {
-        $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
-            ->post($this->baseUrl . "v1/wipeusercontroller/loginauth", ['username' => $username, 'password' => $password]);
-        return $response;
+        return $this->client()->post($this->url('v1/wipeusercontroller/loginauth'), [
+            'username' => $username,
+            'password' => $password,
+        ]);
     }
 
-    /**
-     * @param string $auth_token
-     * @return Response
-     */
-    public function findbytoken(string $auth_token): Response
+    public function findByToken(string $authToken): Response
     {
-        $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
-            ->get($this->baseUrl . "v1/wipeusercontroller/findbytoken?auth_token={$auth_token}");
-        return $response;
+        $url = $this->url('v1/wipeusercontroller/findbytoken');
+
+        if (config('services.wipe_api.token_lookup_method') === 'post') {
+            return $this->client()->post($url, [
+                'auth_token' => $authToken,
+            ]);
+        }
+
+        return $this->client()->get($url, [
+            'auth_token' => $authToken,
+        ]);
     }
 
-    /**
-     * @param string $id
-     * @param int $status
-     * @return Response
-     */
     public function updateStatus(string $id, int $status, int $wipedBy): Response
     {
-        $response = Http::withBasicAuth(getenv($this->usernameKey), getenv($this->passwordKey))
-            ->patch($this->baseUrl . "v1/wipeusercontroller/patch", ['id' => $id, 'status' => $status, 'wiped_by' => $wipedBy]);
-        return $response;
+        return $this->client()->patch($this->url('v1/wipeusercontroller/patch'), [
+            'id' => $id,
+            'status' => $status,
+            'wiped_by' => $wipedBy,
+        ]);
     }
 
+    private function client(): PendingRequest
+    {
+        return Http::acceptJson()
+            ->asJson()
+            ->connectTimeout(3)
+            ->timeout(8)
+            ->withBasicAuth(
+                (string) config('services.wipe_api.username'),
+                (string) config('services.wipe_api.password')
+            );
+    }
 
+    private function url(string $path): string
+    {
+        $baseUrl = rtrim((string) config('services.wipe_api.base_url'), '/');
+
+        return $baseUrl.'/'.ltrim($path, '/');
+    }
 }

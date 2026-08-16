@@ -17,6 +17,8 @@ return [
 
     'default' => env('CACHE_DRIVER', 'file'),
 
+    'limiter' => env('RATE_LIMITER_STORE', env('CACHE_DRIVER', 'file')),
+
     /*
     |--------------------------------------------------------------------------
     | Cache Stores

@@ -16,11 +16,11 @@
                     <strong style="font-size: 18px">Please choose which method you want to Wipe your phone with:</strong>
                 </div>
 
-                @isset($error_message)
+                @if(session('error_message'))
                     <div class="alert alert-danger" role="alert">
-                        <strong>{{ $error_message }}</strong>
+                        <strong>{{ session('error_message') }}</strong>
                     </div>
-                @endisset
+                @endif
 
 
                 <div class="accordion" id="accordionExample">
@@ -33,17 +33,17 @@
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="forms pt-3">
-                                    <form method="POST" action="/">
+                                    <form method="POST" action="{{ route('login.attempt') }}">
                                         <input type="hidden" name="method" value="0">
                                         @csrf
                                         <div class="mb-3">
                                             <label for="username" class="font-silka text-uppercase form-label">Username <sup>*</sup></label>
-                                            <input type="text" name="username" id="username" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required autofocus placeholder="Add your Username">
+                                            <input type="text" name="username" id="username" autocomplete="username" autocapitalize="none" spellcheck="false" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required autofocus placeholder="Add your Username">
                                         </div>
 
                                         <div class="mb-3">
                                             <label for="password" class="font-silka text-uppercase form-label">Password <sup>*</sup></label>
-                                            <input type="password" name="password" id="password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
+                                            <input type="password" name="password" id="password" autocomplete="current-password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -68,19 +68,19 @@
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="forms pt-3">
-                                    <form method="POST" action="/">
+                                    <form method="POST" action="{{ route('login.attempt') }}">
                                         <input type="hidden" name="method" value="1">
                                         @csrf
                                         <p>The Wipe Auth Token can be found in the Protect-app.</p>
 
 
                                         <div class="mb-3">
-                                            <label for="password" class="font-silka text-uppercase form-label">Wipe Auth Token <sup>*</sup></label>
-                                            <input type="text" name="token" id="token" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Wipe Auth Token">
-                                            @error('password')
+                                            <label for="token" class="font-silka text-uppercase form-label">Wipe Auth Token <sup>*</sup></label>
+                                            <input type="password" name="token" id="token" autocomplete="off" autocapitalize="none" spellcheck="false" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Wipe Auth Token">
+                                            @error('token')
                                             <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                </span>
+                                                <strong>{{ $message }}</strong>
+                                            </span>
                                             @enderror
                                         </div>
 
