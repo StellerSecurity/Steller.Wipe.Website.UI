@@ -2,12 +2,37 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Http\Client\Request as HttpRequest;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class WipeSecurityTest extends TestCase
 {
+    public function test_default_token_lookup_uses_header_and_never_the_url(): void
+    {
+        config()->set('services.wipe_api.token_lookup_method', 'get');
+
+        Http::fake([
+            '*findbytoken*' => Http::response([
+                'id' => 'device-1',
+                'status' => 1,
+            ], 200),
+        ]);
+
+        $response = app(\App\Services\WipeService::class)->findByToken('device-secret');
+
+        $this->assertSame(200, $response->status());
+        $this->assertSame('{"id":"device-1","status":1}', $response->body());
+
+        Http::assertSent(function (HttpRequest $request): bool {
+            return $request->method() === 'GET'
+                && $request->hasHeader('X-Wipe-Token', 'device-secret')
+                && ! str_contains($request->url(), 'device-secret')
+                && ! str_contains($request->url(), 'auth_token');
+        });
+    }
+
     public function test_dashboard_requires_an_authenticated_wipe_session(): void
     {
         $this->get('/dashboard')->assertRedirect(route('login'));

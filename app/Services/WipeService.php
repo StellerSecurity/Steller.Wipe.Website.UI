@@ -26,9 +26,9 @@ class WipeService
             ]);
         }
 
-        return $this->client()->get($url, [
-            'auth_token' => $authToken,
-        ]);
+        return $this->client()
+            ->withHeaders(['X-Wipe-Token' => $authToken])
+            ->get($url);
     }
 
     public function updateStatus(string $id, int $status, int $wipedBy): Response
