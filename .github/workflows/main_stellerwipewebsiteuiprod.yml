@@ -31,7 +31,7 @@ jobs:
           php-version: '8.2'
 
       - name: Install locked PHP dependencies
-        run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
+        run: composer validate --no-check-publish && composer install --no-dev --prefer-dist --no-progress
 
       - name: Prepare deployment package
         shell: bash
