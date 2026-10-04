@@ -9,6 +9,39 @@ use Tests\TestCase;
 
 class WipeSecurityTest extends TestCase
 {
+    public function test_signed_and_reserved_tokens_never_enter_legacy_login(): void
+    {
+        Http::fake();
+        foreach (['spw2.synthetic', 'spw3.synthetic', 'SPW2.synthetic', 'spw2.'.str_repeat('A', 5500)] as $token) {
+            $this->post('/login', ['method' => '1', 'token' => $token])
+                ->assertRedirect()
+                ->assertSessionMissing('auth_token')
+                ->assertSessionMissing('_old_input.token');
+        }
+        Http::assertNothingSent();
+    }
+
+    public function test_old_token_login_still_uses_the_existing_api(): void
+    {
+        Http::fake(['*findbytoken*' => Http::response(['auth_token' => 'server-auth-token'], 200)]);
+        $this->post('/login', ['method' => '1', 'token' => 'old-device-token'])
+            ->assertRedirect(route('dashboard'))
+            ->assertSessionHas('auth_token', 'server-auth-token');
+        Http::assertSent(fn (HttpRequest $request) => $request->hasHeader('X-Wipe-Token', 'old-device-token'));
+    }
+
+    public function test_token_page_has_no_native_private_token_submission_or_third_party_scripts(): void
+    {
+        config()->set('wipe_security.headers.content_security_policy', "script-src * 'unsafe-inline'");
+        $response = $this->get('/')->assertOk();
+        $csp = $response->headers->get('Content-Security-Policy');
+        $this->assertStringContainsString("script-src 'self';", $csp);
+        $this->assertStringContainsString('https://stellerprotectuiappapiprod.azurewebsites.net/api/v1/signed-wipe/commands', $csp);
+        $this->assertStringNotContainsString('script-src *', $csp);
+        preg_match('/<input[^>]*id="token"[^>]*>/', $response->getContent(), $input);
+        $this->assertStringNotContainsString('name=', $input[0]);
+    }
+
     public function test_default_token_lookup_uses_header_and_never_the_url(): void
     {
         config()->set('services.wipe_api.token_lookup_method', 'get');

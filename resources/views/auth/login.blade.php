@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@push('scripts')
+<script type="module" src="{{ asset('js/wipe/login.js') }}"></script>
+@endpush
+
 @section('content')
 <div class="container wipe-page">
 
@@ -68,15 +72,13 @@
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="forms pt-3">
-                                    <form method="POST" action="{{ route('login.attempt') }}">
-                                        <input type="hidden" name="method" value="1">
-                                        @csrf
-                                        <p>The Wipe Auth Token can be found in the Protect-app.</p>
-
-
+                                    <form id="wipe-token-entry" autocomplete="off">
+                                        <p>Use the wipe token saved from Protect. Both new and older tokens are supported.</p>
                                         <div class="mb-3">
-                                            <label for="token" class="font-silka text-uppercase form-label">Wipe Auth Token <sup>*</sup></label>
-                                            <input type="password" name="token" id="token" autocomplete="off" autocapitalize="none" spellcheck="false" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Wipe Auth Token">
+                                            <label for="token" class="font-silka text-uppercase form-label">Wipe token <sup>*</sup></label>
+                                            {{-- No name or submit button: a failed script must never send the private token. --}}
+                                            <input type="password" id="token" maxlength="5505" autocomplete="off" autocapitalize="none" spellcheck="false" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Paste your wipe token" aria-describedby="wipe-token-help">
+                                            <p id="wipe-token-help" class="small text-secondary mt-2">New tokens are checked and signed in your browser. The token itself is not sent to our servers. Checking a token does not wipe your phone.</p>
                                             @error('token')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -85,9 +87,31 @@
                                         </div>
 
                                         <div class="action-btn">
-                                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
+                                            <button id="token-continue" type="button" disabled class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Continue <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2" alt=""></button>
                                         </div>
+                                        <noscript><p role="alert">Enable JavaScript to use a wipe token safely. Username and password login is still available above.</p></noscript>
                                     </form>
+                                    <form id="legacy-token-login" method="POST" action="{{ route('login.attempt') }}" hidden>
+                                        @csrf
+                                        <input type="hidden" name="method" value="1">
+                                        <input type="hidden" name="token" value="">
+                                    </form>
+                                    <section id="signed-wipe-panel" hidden aria-label="Wipe confirmation">
+                                        <p id="signed-wipe-status" role="status" aria-live="polite" tabindex="-1"></p>
+                                        <p id="signed-wipe-target" class="small text-secondary" hidden>Token device reference:<br><span id="signed-wipe-device" class="text-break"></span></p>
+                                        <form id="signed-wipe-confirmation" autocomplete="off" hidden>
+                                            <h3 class="fs-5">Confirm remote wipe</h3>
+                                            <p class="text-danger"><strong>This permanently erases the phone associated with this token. It cannot be undone.</strong></p>
+                                            <p class="small text-secondary">If the phone is offline, the request stays queued until it comes online. A request that reaches the phone cannot be cancelled. Requires the latest version of Protect.</p>
+                                            <div class="mb-3">
+                                                <label for="signed-wipe-phrase" class="form-label">Type WIPE to confirm</label>
+                                                <input id="signed-wipe-phrase" class="form-control" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" required pattern="WIPE" maxlength="4">
+                                            </div>
+                                            <button id="signed-wipe-submit" type="submit" disabled class="btn btn-danger mb-2">Wipe my phone</button>
+                                        </form>
+                                        <button id="signed-wipe-retry" type="button" class="btn btn-danger mb-2" hidden>Retry the same request</button>
+                                        <button id="signed-wipe-close" type="button" class="btn btn-outline-secondary">Cancel</button>
+                                    </section>
                                 </div>
                             </div>
                         </div>

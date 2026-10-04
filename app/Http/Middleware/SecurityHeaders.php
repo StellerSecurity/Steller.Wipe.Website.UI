@@ -29,6 +29,12 @@ class SecurityHeaders
         }
 
         $csp = trim((string) config('wipe_security.headers.content_security_policy', ''));
+        // The page holding the signing key must never load third-party scripts,
+        // even when a broader site policy is configured. Only the signed relay
+        // is added to the existing same-origin network allowance.
+        if ($request->is('/') || $request->is('login')) {
+            $csp = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.bunny.net; font-src 'self' https://fonts.bunny.net; img-src 'self' data:; connect-src 'self' https://stellerprotectuiappapiprod.azurewebsites.net/api/v1/signed-wipe/commands; frame-ancestors 'none'; form-action 'self'; base-uri 'self'; object-src 'none'";
+        }
         if ($csp !== '') {
             $response->headers->set('Content-Security-Policy', $csp);
         }

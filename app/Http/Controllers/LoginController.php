@@ -24,6 +24,13 @@ class LoginController extends Controller
 
     public function authenticate(Request $request): RedirectResponse
     {
+        // A signed recovery token contains a private key, not a legacy login.
+        // Reject reserved versions before validation, session flashing or API lookup.
+        $token = $request->input('token');
+        if (is_string($token) && strncasecmp(ltrim($token), 'spw', 3) === 0) {
+            return back()->with('error_message', 'Use the wipe-token field with JavaScript enabled to check this token on your device.');
+        }
+
         $validated = $request->validate([
             'method' => ['required', 'in:0,1'],
             'username' => ['nullable', 'string', 'max:191', 'required_if:method,0'],
