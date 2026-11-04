@@ -37,7 +37,7 @@
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
                                 <div class="forms pt-3">
-                                    <form method="POST" action="{{ route('login.attempt') }}">
+                                    <form method="POST" action="{{ route('login.attempt', absolute: false) }}">
                                         <input type="hidden" name="method" value="0">
                                         @csrf
                                         <div class="mb-3">
@@ -91,7 +91,7 @@
                                         </div>
                                         <noscript><p role="alert">Enable JavaScript to use a wipe token safely. Username and password login is still available above.</p></noscript>
                                     </form>
-                                    <form id="legacy-token-login" method="POST" action="{{ route('login.attempt') }}" hidden>
+                                    <form id="legacy-token-login" method="POST" action="{{ route('login.attempt', absolute: false) }}" hidden>
                                         @csrf
                                         <input type="hidden" name="method" value="1">
                                         <input type="hidden" name="token" value="">

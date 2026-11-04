@@ -42,6 +42,24 @@ class WipeSecurityTest extends TestCase
         $this->assertStringNotContainsString('name=', $input[0]);
     }
 
+    public function test_login_forms_use_same_origin_relative_actions(): void
+    {
+        $content = $this->get('/')->assertOk()->getContent();
+
+        $this->assertSame(2, substr_count($content, 'action="/login"'));
+        $this->assertStringNotContainsString('action="http://', $content);
+        $this->assertStringNotContainsString('action="https://', $content);
+    }
+
+    public function test_forwarded_https_is_used_for_generated_urls(): void
+    {
+        $this->withHeader('X-Forwarded-Proto', 'https')
+            ->get('/')
+            ->assertOk();
+
+        $this->assertStringStartsWith('https://', route('login.attempt'));
+    }
+
     public function test_default_token_lookup_uses_header_and_never_the_url(): void
     {
         config()->set('services.wipe_api.token_lookup_method', 'get');

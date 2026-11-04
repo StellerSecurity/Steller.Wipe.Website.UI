@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h3 class="mb-0">There is currently <strong>1</strong> device linked to your account</h3>
-                        <form method="POST" action="{{ route('logout') }}">
+                        <form method="POST" action="{{ route('logout', absolute: false) }}">
                             @csrf
                             <button type="submit" class="btn btn-outline-secondary">Log out</button>
                         </form>
@@ -36,7 +36,7 @@
 
                         <hr>
 
-                        <a href="{{ route('dashboard.wipe.confirm') }}" class="btn btn-danger">Continue to wipe confirmation</a>
+                        <a href="{{ route('dashboard.wipe.confirm', absolute: false) }}" class="btn btn-danger">Continue to wipe confirmation</a>
                     @endif
                 </div>
             </div>
