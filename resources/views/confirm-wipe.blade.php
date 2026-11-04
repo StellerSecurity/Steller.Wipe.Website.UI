@@ -9,7 +9,7 @@
                     <h2>Confirm remote wipe</h2>
                     <p>This action is destructive and cannot be undone. Type <strong>WIPE</strong> exactly to confirm.</p>
 
-                    <form method="POST" action="{{ route('dashboard.wipe') }}" autocomplete="off">
+                    <form method="POST" action="{{ route('dashboard.wipe', absolute: false) }}" autocomplete="off">
                         @csrf
                         <input type="hidden" name="action_token" value="{{ $action_token }}">
 
@@ -33,7 +33,7 @@
 
                         <div class="d-flex gap-2">
                             <button type="submit" class="btn btn-danger">Wipe my phone</button>
-                            <a href="{{ route('dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                            <a href="{{ route('dashboard', absolute: false) }}" class="btn btn-outline-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>

@@ -16,7 +16,7 @@ def fixture():
     view = re.sub(r'@error\(.*?@enderror', '', view, flags=re.S)
     view = re.sub(r'\{\{--.*?--\}\}', '', view, flags=re.S)
     view = re.sub(r'\{\{ asset\(\x27([^\x27]*)\x27\) \}\}', r'/\1', view)
-    view = view.replace("{{ route('login.attempt') }}", '/login')
+    view = view.replace("{{ route('login.attempt', absolute: false) }}", '/login')
     view = view.replace('@csrf', '<input type="hidden" name="_token" value="synthetic-csrf">')
     view = re.sub(r"@(?:extends|section)\([^\n]*\)|@endsection", '', view)
     # Keep the token accordion open without executing the third-party bundle.

@@ -12,7 +12,10 @@ class TrustProxies extends Middleware
      *
      * @var array<int, string>|string|null
      */
-    protected $proxies;
+    // Azure Front Door terminates TLS before forwarding the request to the
+    // application. Trust the immediate proxy so Laravel can honour the
+    // forwarded HTTPS scheme when generating absolute URLs.
+    protected $proxies = '*';
 
     /**
      * The headers that should be used to detect proxies.

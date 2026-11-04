@@ -14,15 +14,28 @@
   font-family: 'Silka-Medium';
   src: url('/webfonts/silka-medium.ttf') format('truetype');
 }
+:root {
+  --stellar-blue: #2761FC;
+  --stellar-blue-hover: #2152D4;
+  --stellar-ink: #0B0C19;
+  --stellar-text-secondary: #62626A;
+  --stellar-line: #D6D6E0;
+  --stellar-divider: #EAEAF0;
+  --stellar-surface: #F6F6FD;
+  --stellar-white: #FFFFFF;
+  --stellar-error: #E10000;
+}
+
 body{
   background-image: url('/build/assets/images/Object.png');
   background-size: 100%;
   background-repeat: no-repeat;
-  background-color: #fafafa !important;
+  background-color: var(--stellar-surface) !important;
+  color: var(--stellar-ink);
 }
 
 .bg-grey-light{
-  background: #f7f6fc !important;
+  background: var(--stellar-surface) !important;
 }
 
 .form-label{
@@ -30,21 +43,33 @@ body{
 }
 
 .bg-blue{
-  background: #4364FA !important;
+  background: var(--stellar-blue) !important;
 }
 
 .text-blue{
-  color: #4364FA !important;
+  color: var(--stellar-blue) !important;
 }
 
 .btn.btn-blue{
-  background: #4364FA !important;
+  background: var(--stellar-blue) !important;
+  border-color: var(--stellar-blue) !important;
   padding: 10px 20px !important;
 }
 
-.btn.btn-blue:hover{
-  background: #3b58dd !important;
+.btn.btn-blue:hover,
+.btn.btn-blue:focus-visible{
+  background: var(--stellar-blue-hover) !important;
+  border-color: var(--stellar-blue-hover) !important;
   padding: 10px 20px !important;
+}
+
+.btn:focus-visible,
+.form-control:focus-visible,
+.accordion-button:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(39, 97, 252, 0.28) !important;
+  outline-offset: 2px;
+  box-shadow: none !important;
 }
 
 .fs-xl{
@@ -60,16 +85,53 @@ body{
 }
 
 .form-control::placeholder{
-  color: #85898C !important;
+  color: var(--stellar-text-secondary) !important;
   font-family: 'Silka';
 }
 
+.form-control {
+  border-color: var(--stellar-line) !important;
+  color: var(--stellar-ink) !important;
+}
+
+.form-control:focus {
+  border-color: var(--stellar-blue) !important;
+  box-shadow: 0 0 0 3px rgba(39, 97, 252, 0.14) !important;
+}
+
+.accordion-item {
+  border-color: var(--stellar-line) !important;
+}
+
+.accordion-button {
+  color: var(--stellar-ink) !important;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--stellar-blue-hover) !important;
+  background: var(--stellar-surface) !important;
+  box-shadow: inset 0 -1px 0 var(--stellar-line) !important;
+}
+
+.accordion-button::after {
+  filter: none;
+}
+
+.text-secondary {
+  color: var(--stellar-text-secondary) !important;
+}
+
+.alert-danger,
+.text-danger {
+  color: var(--stellar-error) !important;
+}
+
 .border.border-grey-light{
-  border: 2px solid #F7F6FC !important;
+  border: 2px solid var(--stellar-line) !important;
 }
 
 .border-b.border-grey-light{
-  border-bottom: 2px solid #F7F6FC !important;
+  border-bottom: 2px solid var(--stellar-divider) !important;
 }
 
 .font-silka{
