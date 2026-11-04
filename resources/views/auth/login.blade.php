@@ -5,156 +5,134 @@
 @endpush
 
 @section('content')
-<div class="container wipe-page">
-
-    <div class="content-parent d-flex flex-column align-items-center justify-content-center">
-        <div class="headline mt-5">
-            <h1 class="mb-0 text-center fs-xl font-silka">
-                <img src="/Logo_Steller_Protect_RGB.svg" style="height: 100px; max-width: 100%">
-            </h1>
+<div class="wipe-shell">
+    <section class="wipe-intro" aria-labelledby="wipe-title">
+        <p class="wipe-eyebrow">Stellar Protect</p>
+        <h1 id="wipe-title">Securely wipe <br>your device</h1>
+        <p class="wipe-intro__copy">Choose how you want to verify your identity. Your wipe request is protected from start to finish.</p>
+        <div class="wipe-trust" aria-label="Security information">
+            <div class="wipe-trust__item">
+                <span class="wipe-trust__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></span>
+                <span><strong>Encrypted</strong><small>Protected connection</small></span>
+            </div>
+            <div class="wipe-trust__item">
+                <span class="wipe-trust__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l2.5 1.5"/></svg></span>
+                <span><strong>Short session</strong><small>Usually under a minute</small></span>
+            </div>
         </div>
-        <div class="card border border-grey-light mt-5 bg-white rounded-4 p-2" style="max-width: 570px;">
-            <div class="card-body">
-                <div class="upper-card border-b border-grey-light pb-3">
-                    <p class="mb-0 font-silka-bold fs-18px title-headline">Stellar Protect allows you to remote wipe your device</p>
-                    <strong style="font-size: 18px">Please choose which method you want to Wipe your phone with:</strong>
-                </div>
+    </section>
 
-                @if(session('error_message'))
-                    <div class="alert alert-danger" role="alert">
-                        <strong>{{ session('error_message') }}</strong>
+    <section class="wipe-panel" aria-labelledby="wipe-method-title">
+        <div class="wipe-panel__heading">
+            <div>
+                <p class="wipe-panel__kicker">Verification</p>
+                <h2 id="wipe-method-title">Choose wipe method</h2>
+            </div>
+            <span class="wipe-step">Step 1 of 2</span>
+        </div>
+
+        @if(session('error_message'))
+            <div class="alert alert-danger wipe-alert" role="alert"><strong>{{ session('error_message') }}</strong></div>
+        @endif
+
+        <div class="accordion wipe-methods" id="accordionExample">
+            <div class="accordion-item wipe-method">
+                <h3 class="accordion-header" id="headingOne">
+                    <button class="accordion-button wipe-method__trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <span class="wipe-method__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M6.5 19c.6-3.2 2.4-5 5.5-5s4.9 1.8 5.5 5"/></svg></span>
+                        <span><strong>Username and password</strong><small>Use your Stellar Protect account</small></span>
+                    </button>
+                </h3>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body wipe-method__body">
+                        <form method="POST" action="{{ route('login.attempt', absolute: false) }}">
+                            <input type="hidden" name="method" value="0">
+                            @csrf
+                            <div class="wipe-field">
+                                <label for="username" class="form-label">Username <span aria-hidden="true">*</span></label>
+                                <input type="text" name="username" id="username" autocomplete="username" autocapitalize="none" spellcheck="false" class="form-control" required autofocus placeholder="Enter your username">
+                            </div>
+                            <div class="wipe-field">
+                                <label for="password" class="form-label">Password <span aria-hidden="true">*</span></label>
+                                <input type="password" name="password" id="password" autocomplete="current-password" class="form-control" required placeholder="Enter your password">
+                                @error('password')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                            <button type="submit" class="btn btn-blue wipe-primary-action"><span>Continue securely</span><span aria-hidden="true">→</span></button>
+                        </form>
                     </div>
-                @endif
+                </div>
+            </div>
 
-
-                <div class="accordion" id="accordionExample">
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                I want to Wipe with my Username and Password I created in the Protect App
-                            </button>
-                        </h2>
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="forms pt-3">
-                                    <form method="POST" action="{{ route('login.attempt', absolute: false) }}">
-                                        <input type="hidden" name="method" value="0">
-                                        @csrf
-                                        <div class="mb-3">
-                                            <label for="username" class="font-silka text-uppercase form-label">Username <sup>*</sup></label>
-                                            <input type="text" name="username" id="username" autocomplete="username" autocapitalize="none" spellcheck="false" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required autofocus placeholder="Add your Username">
-                                        </div>
-
-                                        <div class="mb-3">
-                                            <label for="password" class="font-silka text-uppercase form-label">Password <sup>*</sup></label>
-                                            <input type="password" name="password" id="password" autocomplete="current-password" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Add your Password">
-                                            @error('password')
-                                            <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="action-btn">
-                                            <button type="submit" class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Login <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2"></button>
-                                        </div>
-                                    </form>
+            <div class="accordion-item wipe-method">
+                <h3 class="accordion-header" id="headingTwo">
+                    <button class="accordion-button collapsed wipe-method__trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <span class="wipe-method__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 1 4 4H8v3H5v-3H3v-4h5Z"/><circle cx="8" cy="8" r="1"/></svg></span>
+                        <span><strong>Wipe token</strong><small>Use a saved token from Protect</small></span>
+                    </button>
+                </h3>
+                <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                    <div class="accordion-body wipe-method__body">
+                        <form id="wipe-token-entry" autocomplete="off">
+                            <p class="wipe-method__explanation">Use the wipe token saved from Protect. Both new and older tokens are supported.</p>
+                            <div class="wipe-field">
+                                <label for="token" class="form-label">Wipe token <span aria-hidden="true">*</span></label>
+                                {{-- No name or submit button: a failed script must never send the private token. --}}
+                                <input type="password" id="token" maxlength="5505" autocomplete="off" autocapitalize="none" spellcheck="false" class="form-control" required placeholder="Paste your wipe token" aria-describedby="wipe-token-help">
+                                <p id="wipe-token-help" class="wipe-field__help">New tokens are checked and signed in your browser. The token itself is not sent to our servers. Checking a token does not wipe your phone.</p>
+                                @error('token')
+                                <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                @enderror
+                            </div>
+                            <button id="token-continue" type="button" disabled class="btn btn-blue wipe-primary-action"><span>Continue securely</span><span aria-hidden="true">→</span></button>
+                            <noscript><p class="wipe-alert" role="alert">Enable JavaScript to use a wipe token safely. Username and password login is still available above.</p></noscript>
+                        </form>
+                        <form id="legacy-token-login" method="POST" action="{{ route('login.attempt', absolute: false) }}" hidden>
+                            @csrf
+                            <input type="hidden" name="method" value="1">
+                            <input type="hidden" name="token" value="">
+                        </form>
+                        <section id="signed-wipe-panel" class="signed-wipe-panel" hidden aria-label="Wipe confirmation">
+                            <p id="signed-wipe-status" role="status" aria-live="polite" tabindex="-1"></p>
+                            <p id="signed-wipe-target" class="wipe-field__help" hidden>Token device reference:<br><span id="signed-wipe-device" class="text-break"></span></p>
+                            <form id="signed-wipe-confirmation" autocomplete="off" hidden>
+                                <h4>Confirm remote wipe</h4>
+                                <p class="text-danger"><strong>This permanently erases the phone associated with this token. It cannot be undone.</strong></p>
+                                <p class="wipe-field__help">If the phone is offline, the request stays queued until it comes online. A request that reaches the phone cannot be cancelled. Requires the latest version of Protect.</p>
+                                <div class="wipe-field">
+                                    <label for="signed-wipe-phrase" class="form-label">Type WIPE to confirm</label>
+                                    <input id="signed-wipe-phrase" class="form-control" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" required pattern="WIPE" maxlength="4">
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingTwo">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                I want to Wipe my phone with my Wipe Token
-                            </button>
-                        </h2>
-                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                <div class="forms pt-3">
-                                    <form id="wipe-token-entry" autocomplete="off">
-                                        <p>Use the wipe token saved from Protect. Both new and older tokens are supported.</p>
-                                        <div class="mb-3">
-                                            <label for="token" class="font-silka text-uppercase form-label">Wipe token <sup>*</sup></label>
-                                            {{-- No name or submit button: a failed script must never send the private token. --}}
-                                            <input type="password" id="token" maxlength="5505" autocomplete="off" autocapitalize="none" spellcheck="false" class="form-control bg-white border border-grey-light font-silka rounded-3" style="height: 50px;" required placeholder="Paste your wipe token" aria-describedby="wipe-token-help">
-                                            <p id="wipe-token-help" class="small text-secondary mt-2">New tokens are checked and signed in your browser. The token itself is not sent to our servers. Checking a token does not wipe your phone.</p>
-                                            @error('token')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
-                                        </div>
-
-                                        <div class="action-btn">
-                                            <button id="token-continue" type="button" disabled class="btn btn-blue rounded-3 text-white p-2 font-silka font-silka-medium">Continue <img src="{{ asset('build/assets/images/lock.svg') }}" class="ms-2" alt=""></button>
-                                        </div>
-                                        <noscript><p role="alert">Enable JavaScript to use a wipe token safely. Username and password login is still available above.</p></noscript>
-                                    </form>
-                                    <form id="legacy-token-login" method="POST" action="{{ route('login.attempt', absolute: false) }}" hidden>
-                                        @csrf
-                                        <input type="hidden" name="method" value="1">
-                                        <input type="hidden" name="token" value="">
-                                    </form>
-                                    <section id="signed-wipe-panel" hidden aria-label="Wipe confirmation">
-                                        <p id="signed-wipe-status" role="status" aria-live="polite" tabindex="-1"></p>
-                                        <p id="signed-wipe-target" class="small text-secondary" hidden>Token device reference:<br><span id="signed-wipe-device" class="text-break"></span></p>
-                                        <form id="signed-wipe-confirmation" autocomplete="off" hidden>
-                                            <h3 class="fs-5">Confirm remote wipe</h3>
-                                            <p class="text-danger"><strong>This permanently erases the phone associated with this token. It cannot be undone.</strong></p>
-                                            <p class="small text-secondary">If the phone is offline, the request stays queued until it comes online. A request that reaches the phone cannot be cancelled. Requires the latest version of Protect.</p>
-                                            <div class="mb-3">
-                                                <label for="signed-wipe-phrase" class="form-label">Type WIPE to confirm</label>
-                                                <input id="signed-wipe-phrase" class="form-control" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" required pattern="WIPE" maxlength="4">
-                                            </div>
-                                            <button id="signed-wipe-submit" type="submit" disabled class="btn btn-danger mb-2">Wipe my phone</button>
-                                        </form>
-                                        <button id="signed-wipe-retry" type="button" class="btn btn-danger mb-2" hidden>Retry the same request</button>
-                                        <button id="signed-wipe-close" type="button" class="btn btn-outline-secondary">Cancel</button>
-                                    </section>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   <!-- <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingThree">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                I want to Wipe my phone with my Signal / Telegram or Whats-app number
-                            </button>
-                        </h2>
-                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                This method does only work for <a href="https://stellarsecurity.com/stellar-phone">Stellar Phone</a>. Please contact our support to get help.
-                                <a href="https://stellarsecurity.com/contact-us">Contact us</a>, you can also use our live-chat.
-                            </div>
-                        </div>
-                    </div>-->
-
-                    <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingFour">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                I want to Wipe my phone with Stellar Circle
-                            </button>
-                        </h2>
-                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
-                            <div class="accordion-body">
-                                To wipe a phone with Stellar Circle, your friend must have Stellar Protect on their phone. In any situation they can with one-click wipe your phone. See more here: <a href="https://stellarsecurity.com/stellar-circle">Stellar Circle</a>
-                            </div>
-                        </div>
+                                <button id="signed-wipe-submit" type="submit" disabled class="btn btn-danger">Wipe my phone</button>
+                            </form>
+                            <button id="signed-wipe-retry" type="button" class="btn btn-danger" hidden>Retry the same request</button>
+                            <button id="signed-wipe-close" type="button" class="btn btn-outline-secondary">Cancel</button>
+                        </section>
                     </div>
                 </div>
+            </div>
 
-
-
-                <div class="information py-3 border-b border-grey-light">
-                    <p class="mb-0 text-secondary">If you need any help, you can use our <a href="https://stellarsecurity.com/contact-us">contact-us page.</a></p>
-                </div>
-
-                <div class="card-foot pt-3 text-center">
-                    <p class="mb-0 font-silka"><img src="{{ asset('build/assets/images/lock-circle.svg') }}"> Encrypted, secured and protected by Stellar Security</p>
+            <div class="accordion-item wipe-method">
+                <h3 class="accordion-header" id="headingFour">
+                    <button class="accordion-button collapsed wipe-method__trigger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                        <span class="wipe-method__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="3"/><circle cx="17" cy="10" r="2"/><path d="M3.5 19c.6-3.3 2.4-5 5.5-5s4.9 1.7 5.5 5M15 15c2.8-.3 4.6 1 5.2 3.5"/></svg></span>
+                        <span><strong>Stellar Circle</strong><small>Ask a trusted Circle contact</small></span>
+                    </button>
+                </h3>
+                <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                    <div class="accordion-body wipe-method__body">
+                        <p class="wipe-method__explanation">To wipe a phone with Stellar Circle, your trusted contact must have Stellar Protect on their phone. They can wipe your phone with one click.</p>
+                        <a class="wipe-text-link" href="https://stellarsecurity.com/stellar-circle">Learn more about Stellar Circle <span aria-hidden="true">→</span></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+
+        <div class="wipe-panel__footer">
+            <p>Need help? <a href="https://stellarsecurity.com/contact-us">Contact support</a></p>
+            <p class="wipe-panel__secured"><span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="6" y="10" width="12" height="9" rx="2"/><path d="M9 10V7a3 3 0 0 1 6 0v3"/></svg></span>Encrypted by Stellar Security</p>
+        </div>
+    </section>
 </div>
 @endsection

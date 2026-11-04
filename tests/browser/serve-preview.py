@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 def fixture():
     view = (ROOT / 'resources/views/auth/login.blade.php').read_text()
+    header = (ROOT / 'resources/views/layouts/header.blade.php').read_text()
     view = re.sub(r'@push\(.*?@endpush', '', view, flags=re.S)
     view = re.sub(r'@if\(.*?@endif', '', view, flags=re.S)
     view = re.sub(r'@error\(.*?@enderror', '', view, flags=re.S)
@@ -20,14 +21,13 @@ def fixture():
     view = view.replace("{{ route('login.attempt', absolute: false) }}", '/login')
     view = view.replace('@csrf', '<input type="hidden" name="_token" value="synthetic-csrf">')
     view = re.sub(r"@(?:extends|section)\([^\n]*\)|@endsection", '', view)
-    # Keep the token accordion open without executing the third-party bundle.
-    view = view.replace('id="collapseTwo" class="accordion-collapse collapse"', 'id="collapseTwo" class="accordion-collapse collapse show"')
-    view = view.replace('id="collapseOne" class="accordion-collapse collapse show"', 'id="collapseOne" class="accordion-collapse collapse"')
+    header = re.sub(r'\{\{ asset\(\x27([^\x27]*)\x27\) \}\}', r'/\1', header)
     return ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Local synthetic wipe tests</title><link rel="stylesheet" href="/build/assets/app-71455456.css">'
             '<link rel="stylesheet" href="/build/assets/style.css"><body>'
-            '<p id="test-results" role="status">Running local tests. All network submissions are blocked.</p>'
-            + view + '<script type="module" src="/dom.test.js"></script></body></html>').encode()
+            '<p id="test-results" role="status" hidden>Running local tests. All network submissions are blocked.</p>'
+            '<header class="stellar-header">' + header + '</header><main class="wipe-main">'
+            + view + '</main><script type="module" src="/dom.test.js"></script></body></html>').encode()
 
 class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
