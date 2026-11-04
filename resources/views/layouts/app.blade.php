@@ -11,17 +11,17 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700" rel="stylesheet">
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     <link rel="stylesheet" href="{{ asset('build/assets/style.css') }}?v={{ filemtime(public_path('build/assets/style.css')) }}">
     @stack('scripts')
 </head>
 <body>
-    <header>
+    <header class="stellar-header">
         @include('layouts.header')
     </header>
-    <main class="py-4">
+    <main class="wipe-main">
         @yield('content')
     </main>
 </body>
