@@ -13,8 +13,7 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700" rel="stylesheet">
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-    <link rel="stylesheet" href="{{ asset('build/assets/style.css') }}?v={{ filemtime(public_path('build/assets/style.css')) }}">
+    @vite(['resources/sass/app.scss', 'resources/css/wipe.css', 'resources/js/app.js'])
     @stack('scripts')
 </head>
 <body>

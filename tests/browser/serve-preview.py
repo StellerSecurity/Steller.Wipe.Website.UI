@@ -16,7 +16,6 @@ def fixture():
     view = re.sub(r'@if\(.*?@endif', '', view, flags=re.S)
     view = re.sub(r'@error\(.*?@enderror', '', view, flags=re.S)
     view = re.sub(r'\{\{--.*?--\}\}', '', view, flags=re.S)
-    view = view.replace("{{ asset('build/assets/style.css') }}?v={{ filemtime(public_path('build/assets/style.css')) }}", '/build/assets/style.css?v=preview')
     view = re.sub(r'\{\{ asset\(\x27([^\x27]*)\x27\) \}\}', r'/\1', view)
     view = view.replace("{{ route('login.attempt', absolute: false) }}", '/login')
     view = view.replace('@csrf', '<input type="hidden" name="_token" value="synthetic-csrf">')
@@ -24,7 +23,7 @@ def fixture():
     header = re.sub(r'\{\{ asset\(\x27([^\x27]*)\x27\) \}\}', r'/\1', header)
     return ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>Local synthetic wipe tests</title><link rel="stylesheet" href="/build/assets/app-71455456.css">'
-            '<link rel="stylesheet" href="/build/assets/style.css"><body>'
+            '<link rel="stylesheet" href="/wipe-preview.css"><body>'
             '<p id="test-results" role="status" hidden>Running local tests. All network submissions are blocked.</p>'
             '<header class="stellar-header">' + header + '</header><main class="wipe-main">'
             + view + '</main><script type="module" src="/dom.test.js"></script></body></html>').encode()
@@ -34,8 +33,13 @@ class Handler(BaseHTTPRequestHandler):
         if self.path == '/':
             data, mime = fixture(), 'text/html'
         else:
-            file = ROOT / 'tests/browser/dom.test.js' if self.path == '/dom.test.js' else (ROOT / 'public' / self.path.lstrip('/')).resolve()
-            allowed = file == ROOT / 'tests/browser/dom.test.js' or file.is_relative_to(ROOT / 'public')
+            if self.path == '/dom.test.js':
+                file = ROOT / 'tests/browser/dom.test.js'
+            elif self.path == '/wipe-preview.css':
+                file = ROOT / 'resources/css/wipe.css'
+            else:
+                file = (ROOT / 'public' / self.path.lstrip('/')).resolve()
+            allowed = file in {ROOT / 'tests/browser/dom.test.js', ROOT / 'resources/css/wipe.css'} or file.is_relative_to(ROOT / 'public')
             if not allowed or not file.is_file():
                 self.send_error(404)
                 return
