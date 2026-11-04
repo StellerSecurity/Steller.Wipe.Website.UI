@@ -15,6 +15,7 @@ def fixture():
     view = re.sub(r'@if\(.*?@endif', '', view, flags=re.S)
     view = re.sub(r'@error\(.*?@enderror', '', view, flags=re.S)
     view = re.sub(r'\{\{--.*?--\}\}', '', view, flags=re.S)
+    view = view.replace("{{ asset('build/assets/style.css') }}?v={{ filemtime(public_path('build/assets/style.css')) }}", '/build/assets/style.css?v=preview')
     view = re.sub(r'\{\{ asset\(\x27([^\x27]*)\x27\) \}\}', r'/\1', view)
     view = view.replace("{{ route('login.attempt', absolute: false) }}", '/login')
     view = view.replace('@csrf', '<input type="hidden" name="_token" value="synthetic-csrf">')

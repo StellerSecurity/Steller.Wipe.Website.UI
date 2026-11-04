@@ -60,6 +60,13 @@ class WipeSecurityTest extends TestCase
         $this->assertStringStartsWith('https://', route('login.attempt'));
     }
 
+    public function test_stellar_stylesheet_url_is_cache_busted(): void
+    {
+        $content = $this->get('/')->assertOk()->getContent();
+
+        $this->assertMatchesRegularExpression('/build\/assets\/style\.css\?v=\d+/', $content);
+    }
+
     public function test_default_token_lookup_uses_header_and_never_the_url(): void
     {
         config()->set('services.wipe_api.token_lookup_method', 'get');
